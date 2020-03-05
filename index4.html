@@ -1,0 +1,46 @@
+<html>
+
+<head>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-physics-system/v4.0.1/dist/aframe-physics-system.min.js"></script>
+    <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-entity-generator-component@3.0.2/dist/aframe-entity-generator-component.min.js"></script>
+    <script src="https://unpkg.com/aframe-randomizer-components@3.0.2/dist/aframe-randomizer-components.min.js"></script>
+
+</head>
+
+<body>
+    <a-scene physics="gravity: -.3">
+
+        <a-assets>
+            <a-asset-item id="example" src="assets/models/example.obj"></a-asset-item>
+        </a-asset-item>
+
+        <a-camera>
+          <a-cursor></a-cursor>
+      </a-camera>
+
+        <a-mixin id="model" obj-model="obj: #example" scale=".045 .045 .045"></a-mixin>
+
+        <a-mixin id="random-1" random-position="min: -10 -10 -10; max: 10 10 10" random-color dynamic-body="linearDamping:.001 angularDamping:-1" ></a-mixin>
+
+      </a-asset-item>
+    </a-assets>
+
+
+    <a-entity camera look-controls wasd-controls="acceleration:100" position="0 1 -1">
+        <a-entity cursor="fuse: true; fuseTimeout: 500"
+                  position="0 0 -1"
+                  geometry="primitive: sphere; radius: 3"
+                  visible="false"
+                  material="color: black; shader: flat"
+                  static-body>
+        </a-entity>
+      </a-entity>
+
+    <a-entity entity-generator="mixin: random-1 model; num: 500"></a-entity>
+
+    <a-sky id="image-360" radius="1.0" animation="property: rotation; to: 50 360 0; loop: true; dur: 30000; dir: reverse" position="2.208 6.018 0.890" rotation="90 45 90" scale="25 25 25" src="assets/img/sky.jpeg"></a-sky>
+
+    </a-scene>
+</body>
